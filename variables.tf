@@ -67,6 +67,18 @@ variable "environment_machine_type" {
   }
 }
 
+
+variable "dbusername" {
+  type = string
+  default = "dbadmin"
+  sensitive = true
+}
+
+variable "dbpassword" {
+  type = string
+  sensitive = true
+}
+
 variable "environment_instance_settings" {
   type = map(object({machine_type=string, labels=map(string)}))
   default = {

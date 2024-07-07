@@ -156,7 +156,7 @@ resource "google_sql_database_instance" "cloudsql" {
 
 ## CLOUD SQL USER
 resource "google_sql_user" "users" {
-  name     = "db-user"
+  name     = var.dbusername
   instance = google_sql_database_instance.cloudsql.name
-  password = "notsecurepassword"
+  password = var.dbpassword
 }
