@@ -35,6 +35,12 @@ resource "google_compute_firewall" "default" {
   source_tags = var.compute-source-tags
 }
 
+
+// add a public IP address to the nginx instance
+resource "google_compute_address" "nginx_address" {
+  name = "nginx-address"
+}
+
 ### COMPUTE
 ## NGINX PROXY
 resource "google_compute_instance" "nginx_instance" {
@@ -55,7 +61,8 @@ resource "google_compute_instance" "nginx_instance" {
     network = data.google_compute_network.default.self_link
     subnetwork = google_compute_subnetwork.subnet-1.self_link
     access_config {
-  
+      // Allocate a public IP to the instance
+      nat_ip = google_compute_address.nginx_address.address
     }
   }
 }
